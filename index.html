@@ -39,7 +39,7 @@
 
 <body>
 
-<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
 <h1 align="middle">Project 2: Mesh Edit</h1>
 <h2 align="middle">Aditya Singh, Abhi Gundrala</h2>
 
@@ -148,7 +148,7 @@
 <p>
   For surfaces, two parameters u and v are supplied to the interpolation algorithm as analogs to the t parameter in the 1D case.
   The control points of the surface are defined as an nxn grid where first the rows of the grid are interpolated using 1D Casteljau using the parameter u.
-  The interpolated point from this operation is added to a stack and each of these points act as a control point for another 1D interpolation using the parameter v.
+  The interpolated point from this operation is added to a list and each of these points act as a control point for another 1D interpolation using the parameter v.
   The resulting point lies on the surface with parameter u and v.
 </p>
 <br>
@@ -174,7 +174,8 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-  To calculate the area-weighted vertex normal of a specific vertex, the normals of the faces that are incident to the vertex are summed and normalized.
+  To calculate the area-weighted vertex normal of a specific vertex, the normals of the faces that are incident to the vertex are summed and normalized. The area-weighted normal
+    for each face is found by taking the cross products of edges of each face.
   The implementation used the halfedge iterator to locate one side of each edge that are incident to the vertex. To circularly iterate through all the faces, the twin half edge is extracted
   and the normal of the face corresponding to the half edge is summed with a running total. The algorithm terminates when the half edge being evaluated is the same as the half edge we started with 
   meaning we have circularly traversed all faces surrounding the vertex.
@@ -210,7 +211,7 @@
   Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-  Edge flip was implemented by creating new components and reassigning previous componenent values in a specifc order such that the shared edge
+  Edge flip was implemented by reassigning previous componenent values in a specific order such that the shared edge
   between the two triangles is assigned to the opposite pair of vertices. Each value was temporarily assigned and used in the constructor methods to
   assign new values to to the pointers.
 </p>
@@ -242,7 +243,11 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    When implementing this part we drew before and after diagrams with each component labeled. Then we wrote out what the updated pointer
+    values would be for every single component, whether it was a redundant reassignment or not. Despite this,
+    there was one bug that manifested after several flips which caused holes. To debug this we rechecked our written pointer reassignments
+    and realized we forgot to include reassignments for twin edges outside the faces that were part of the flip. By having clearly written work
+    we were able to avoid tediously chasing pointers in the code.
 </p>
 <br>
 
@@ -313,7 +318,9 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    When implementing this part we painstakingly drew before and after diagrams with each component labeled. Then we wrote out what the updated pointer
+    values would be for every single component, whether it was a redundant reassignment or not. By doing this preparation before coding, we were able to avoid
+    bugs in our implementation.
 </p>
 <br>
 
@@ -322,7 +329,10 @@
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-  YOUR RESPONSE GOES HERE
+  Loop subdivison upsamples the mesh by subdividing each triangle 4-1. First we calculate what the new position of each vertex should be and store it
+    in the Vertex::newPosition attirubte. Then we find what the new position for every edge's new vertex would be and store that in Edge::newPosition. Then we split every existing edge,
+    making sure to skip newly created edges by checking their vertices. Then we flip every edge that is connceted to one new and one old vertex. Then we 
+    update every vertex position to its new position.
 </p>
 <br>
 

@@ -354,7 +354,7 @@
             Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
         </b>
         <p>
-            Sharp edges and corners are rounded out by loop subdivision as can be seen here from the pot. Presplitting edges can deform the shape to emphasis different corners and edges.
+            Sharp edges and corners are rounded out by loop subdivision as can be seen here from the pot. Presplitting edges can deform the shape to emphasize different corners and edges.
         </p>
         <br />
 
@@ -376,7 +376,8 @@
         <br />
 
         <p>
-            We can see the pronounced effect of how rounding of edges occurs with subdivision on the torus. Presplitting edges can reduce this effect.
+            We can see the pronounced effect of how rounding of edges occurs with subdivision on the torus. Presplitting edges can reduce this effect and the 
+            original shape seems to be more retained.
         </p>
         <br />
 
@@ -434,7 +435,7 @@
             Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
         </b>
         <p>
-            To make the cube symmetric, one can preprocess all the initial edges that intersect a face by spliting each. This makes four triangles for each face which allows for the subdivision to become symmetric. This occurs
+            To make the cube symmetric, one can preprocess all the initial edges that intersect a face by splitting each. This makes four triangles for each face which allows for the subdivision to become symmetric. This occurs
             since before when the cube face edges were not split, each face was made of two triangles that had a diagonal that was longer than the other two sides. In a 4-1 subdivision scheme, the new triangles are only equilateral
             if the original triangle was aswell. When we split the edge, the face has 4 equilateral triangles that result in a symmetric design where all triangles are equilateral.
         </p>
